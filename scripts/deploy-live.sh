@@ -24,7 +24,7 @@ curl -v -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/pan
 #===============================================================#
 # Deploy modified files to production                           #
 #===============================================================#
-rsync --size-only --delete-after -rlvzi --ipv4 --progress -e 'ssh -p 2222 -oStrictHostKeyChecking=no' output_prod/docs/ --temp-dir=../../tmp/ live.$PROD_UUID@appserver.live.$PROD_UUID.drush.in:files/docs/
+rsync --size-only --delete-after -rlzi --ipv4 --progress --info=BACKUP,DEL -e 'ssh -p 2222 -oStrictHostKeyChecking=no' output_prod/docs/ --temp-dir=/tmp/ live.$PROD_UUID@appserver.live.$PROD_UUID.drush.in:files/docs/
 if [ "$?" -eq "0" ]
 then
     echo "Success: Deployed to https://pantheon.io/docs"
