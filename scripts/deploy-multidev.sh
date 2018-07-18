@@ -89,7 +89,7 @@ if [ "$CIRCLE_BRANCH_SLUG" != "master" ] && [ "$CIRCLE_BRANCH_SLUG" != "dev" ] &
   printf "Copy docs to multidev environment.. \n"
   while true
   do
-    if ! rsync --size-only --delete-after -rtlzi --ipv4 --progress --info=BACKUP,DEL -e 'ssh -p 2222 -oStrictHostKeyChecking=no' output_prod/docs/ --temp-dir=/tmp/ $normalize_branch.$STATIC_DOCS_UUID@appserver.$normalize_branch.$STATIC_DOCS_UUID.drush.in:files/docs/; then
+    if ! rsync --size-only --delete-after -rtlz --ipv4 --progress --info=BACKUP,DEL -e 'ssh -p 2222 -oStrictHostKeyChecking=no' output_prod/docs/ --temp-dir=/tmp/ $normalize_branch.$STATIC_DOCS_UUID@appserver.$normalize_branch.$STATIC_DOCS_UUID.drush.in:files/docs/; then
       echo "Failed, retrying..."
       sleep 5
     else
