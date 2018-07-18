@@ -94,14 +94,16 @@ if [ "$CIRCLE_BRANCH_SLUG" != "master" ] && [ "$CIRCLE_BRANCH_SLUG" != "dev" ] &
       echo "Failed, retrying..."
       sleep 5
     else
+      printf "Displayin Rsync log \n \n"
       cat ./multidev-log.txt
+      printf "\n"
       echo "Success: Deployed to $url"
       break
     fi
   done
 
 
-  printf "Commenting on GitHub... \n"
+  printf "\n Commenting on GitHub... \n"
 
   #Get comment ID and comment body from last commit comment
   export previous_commit=($(git log --format="%H" -n 2))
