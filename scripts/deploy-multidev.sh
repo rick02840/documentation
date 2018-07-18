@@ -87,14 +87,14 @@ if [ "$CIRCLE_BRANCH_SLUG" != "master" ] && [ "$CIRCLE_BRANCH_SLUG" != "dev" ] &
   # rsync output_prod/* to Valhalla
 
   printf "Copy docs to multidev environment.. \n"
-  touch ~/multidev-log.txt
+  touch ./multidev-log.txt
   while true
   do
-    if ! rsync --size-only --delete-after -rtlzq --ipv4 --info=BACKUP,DEL --log-file=~/multidev-log.txt -e 'ssh -p 2222 -oStrictHostKeyChecking=no' output_prod/docs/ --temp-dir=../../tmp/ $normalize_branch.$STATIC_DOCS_UUID@appserver.$normalize_branch.$STATIC_DOCS_UUID.drush.in:files/docs/; then
+    if ! rsync --size-only --delete-after -rtlzq --ipv4 --info=BACKUP,DEL --log-file=multidev-log.txt -e 'ssh -p 2222 -oStrictHostKeyChecking=no' output_prod/docs/ --temp-dir=../../tmp/ $normalize_branch.$STATIC_DOCS_UUID@appserver.$normalize_branch.$STATIC_DOCS_UUID.drush.in:files/docs/; then
       echo "Failed, retrying..."
       sleep 5
     else
-      cat ~/multidev-log.txt
+      cat ./multidev-log.txt
       echo "Success: Deployed to $url"
       break
     fi
